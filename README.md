@@ -88,7 +88,7 @@ WeatherMaster aims to offer a smooth, ad-free experience while providing precise
 - **Jest**: For unit testing React components.
 - **Pytest**: For backend testing.
 - **Selenium**: For end-to-end testing.
-- **Travis CI**: For CI/CD automation.
+- **Circle CI**: For CI/CD automation.
 
 ## How to use
 
