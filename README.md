@@ -16,8 +16,6 @@ WeatherMaster aims to offer a smooth, ad-free experience while providing precise
 
 ## User Experience
 
-- **Localized Alerts**: Timely notifications for weather changes.
-
 ## Environment
 
 - Node.js (v14.x or later)
