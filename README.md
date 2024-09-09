@@ -2,9 +2,14 @@
 
 ## Description
 
-WeatherMaster aims to offer a smooth, ad-free experience while providing precise and timely weather information. The app aggregates data from multiple weather sources to ensure accurate forecasts.
+WeatherMaster offers a smooth, ad-free experience while providing accurate and timely weather information, including current conditions, hourly forecasts, daily forecasts, and radar data. The app aggregates data from multiple weather sources to ensure accurate forecasts.
 
 ## Features
+- **Current Weather**: Displays real-time weather conditions.
+- **Hourly Forecast**: Provides weather forecasts for the next 24 hours.
+- **Daily Forecast**: Shows weather forecasts for up to 10 days.
+- **Radar Data**: Offers radar images for weather patterns.
+
 - **Backend Server**: Developed with Flask to process requests, handle logic, and communicate with external APIs. Handles API requests and integrates with third-party weather APIs.
 - **Frontend**: Built with React.js to handle user interactions, interface design, and display data. The user interface communicates with the backend server and presents weather data to users. 
 - **APIs**: Routes for retrieving weather information, user preferences, and event management.
@@ -46,6 +51,8 @@ WeatherMaster aims to offer a smooth, ad-free experience while providing precise
 - CircleCI Continuous Integration / Continuous Deployment (CI/CD)
 
 ### Weather APIs
+
+**APIs**: Endpoints used to fetch current weather, forecasts, and radar data
 
 - **Current Weather**
   - **Description**: Returns current weather conditions for a specified location.
@@ -160,3 +167,4 @@ A: API documentation is included in the `README.md` under the [Weather API](#wea
 
 - **Issue**: Occasionally, the app may experience delays in data retrieval.
 - **Solution**: This is under review; future updates will address performance optimizations.
+
