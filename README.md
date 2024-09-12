@@ -2,53 +2,18 @@
 
 ## Description
 
-WeatherMaster offers a smooth, ad-free experience while providing accurate and timely weather information, including current conditions, hourly forecasts, daily forecasts, and radar data. The app aggregates data from multiple weather sources to ensure accurate forecasts.
+WeatherMaster is a smooth, ad-free way to get up-to-date, reliable weather information. The app provides current weather information, short-term and long-term forecasts, and radar data aggregated from multiple weather sources for improved accuracy.
 
 ## Features
-- **Current Weather**: Displays real-time weather conditions.
+- **Current Weather**: Shows real-time weather conditions.
 - **Hourly Forecast**: Provides weather forecasts for the next 24 hours.
-- **Daily Forecast**: Shows weather forecasts for up to 10 days.
-- **Radar Data**: Offers radar images for weather patterns.
-
-- **Backend Server**: Developed with Flask to process requests, handle logic, and communicate with external APIs. Handles API requests and integrates with third-party weather APIs.
-- **Frontend**: Built with React.js to handle user interactions, interface design, and display data. The user interface communicates with the backend server and presents weather data to users. 
-- **APIs**: Routes for retrieving weather information, user preferences, and event management.
-- **Cache**: Redis for faster data retrieval and improving response times.
-- **Load Balancer**: Distributes user requests to multiple server instances to enhance performance and availability.
-- **Proxy**: Server-side proxy setup to handle API requests and overcome CORS issues.
-- **Monitoring and Logging**: Tools for tracking application health and performance.
-- **CI/CD Pipeline**: Automated testing, building, and deployment via tools like Circle CI.
-
-## User Experience
+- **Daily Forecast**: Displays weather forecasts for up to 10 days.
 
 ## Environment
 
 - Node.js (v14.x or later)
 - NPM or Yarn
-- Docker (optional, for containerization)
 
-## Requirement
-
-**Frontend**
-- React.js
-- Axios
-- Recharts
-
-**Backend**
-- Flask
-- SQLAlchemy
-- Celery
-
-**Infrastructure**
-- Heroku
-- Redis
-- PostgreSQL
-
-**Testing and Automation**
-- Jest
-- Pytest
-- Selenium
-- CircleCI Continuous Integration / Continuous Deployment (CI/CD)
 
 ### Weather APIs
 
@@ -63,14 +28,28 @@ WeatherMaster offers a smooth, ad-free experience while providing accurate and t
   - **Response**: `{ "hourly": [ ... ] }`
 
 - **Long-Term Forecast**
-  - **Description**: Provides a long-term weather forecast (up to 10 days) for a specified location.
+  - **Description**: Provides a long-term weather forecast (up to 7 days) for a specified location.
   - **Response**: `{ "daily": [ ... ] }`
 
-## 3rd Party APIs
+### Third-Party APIs
 
 - [OpenWeatherMap API](https://openweathermap.org/api): Primary source for weather data.
 - [AccuWeather API](https://developer.accuweather.com/): Used as a fallback or supplementary source.
 - [Weatherbit API](https://www.weatherbit.io/): Alternative source for cross-referencing data.
+
+
+- **/api/weather/current**
+  - **GET**: Retrieves current weather conditions for a specified location.
+  - **Response**: `{ "temperature": "15°C", "conditions": "Clear", "humidity": "80%" }`
+
+- **/api/weather/hourly**
+  - **GET**: Provides a short-term weather forecast (next 24 hours) for a specified location.
+  - **Response**: `{ "hourly": [ ... ] }`
+
+- **/api/weather/daily**
+  - **GET**: Provides a long-term weather forecast (up to 10 days) for a specified location.
+  - **Response**: `{ "daily": [ ... ] }`
+
 
 ## Technology Stack
 
@@ -80,20 +59,20 @@ WeatherMaster offers a smooth, ad-free experience while providing accurate and t
 - **Recharts**: For data visualization.
 
 ### Backend
-- **Flask**: Lightweight web framework for server-side logic.
+- **Flask**: Lightweight web framework for handling server-side logic.
 - **SQLAlchemy**: ORM for database interactions.
-- **Celery**: For asynchronous task management.
+- **Celery**: For managing asynchronous tasks.
 
 ### Infrastructure
 - **Heroku**: For cloud deployment and hosting.
-- **Redis**: In-memory data store for Celery message brokering.
+- **Redis**: In-memory data store for caching and message brokering.
 - **PostgreSQL**: Scalable relational database.
 
 ### Testing and Automation
 - **Jest**: For unit testing React components.
 - **Pytest**: For backend testing.
 - **Selenium**: For end-to-end testing.
-- **Circle CI**: For CI/CD automation.
+- **CircleCI**: For CI/CD automation.
 
 ## How to use
 
@@ -136,7 +115,6 @@ WeatherMaster offers a smooth, ad-free experience while providing accurate and t
    - Visit `http://localhost:3000` for the frontend.
    - Visit `http://localhost:5000` for the backend.
 
-
 ## Contributing
 
 Contributions are welcome! Please follow these steps:
@@ -167,4 +145,3 @@ A: API documentation is included in the `README.md` under the [Weather API](#wea
 
 - **Issue**: Occasionally, the app may experience delays in data retrieval.
 - **Solution**: This is under review; future updates will address performance optimizations.
-
