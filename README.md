@@ -1,6 +1,9 @@
 # WeatherMaster
 
+![Weather Display Interface](https://github.com/user-attachments/assets/f38fe372-d059-46c9-b4a2-5d40e2b255b4)
+
 ## Description
+
 
 WeatherMaster is a smooth, ad-free way to get up-to-date, reliable weather information. The app provides current weather information, short-term and long-term forecasts, and radar data aggregated from multiple weather sources for improved accuracy.
 
