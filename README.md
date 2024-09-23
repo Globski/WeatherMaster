@@ -7,17 +7,47 @@
 WeatherMaster is a weather monitoring application that provides users with weather-related data. It is built using React for the frontend, Flask for the backend API, and Redis for caching to improve performance. WeatherMaster is a smooth, ad-free way to get up-to-date, reliable weather information. The app provides current weather information, short-term and long-term forecasts.
 
 
-
 ## Features
 - **Current Weather**: Shows real-time weather conditions.
 - **Hourly Forecast**: Provides weather forecasts for the next 24 hours.
 - **Daily Forecast**: Displays weather forecasts for up to 10 days.
 
+- Home Section: Displays a welcoming message.
+- Offer Section: Shows the offers provided by WeatherMaster.
+- Track Section: Allows users to track their weather data.
+- Sign-up Section: Provides an option for users to sign up for weather updates.
+- About Section: General information about WeatherMaster.
+- Contact Section: Contains contact information, linked to the footer.
+- Footer: Includes Privacy Policy and Terms & Conditions.
+
 ## Environment
 
-- Node.js (v14.x or later)
-- NPM or Yarn
+- Node.js (for React)
+- Python 3.x (for Flask)
+- Redis (for caching)
+- npm (comes with Node.js)
+- pip (comes with Python)
 
+# Requirments
+
+- Flask
+- Flask-CORS
+- redis
+- json
+
+## API Endpoints
+
+**GET /api/data:** Returns the weather data for all sections in JSON format.
+
+```json
+{
+   "home": "Welcome to WeatherMaster",
+   "offer": "Here are our offerings",
+   "track": "Track your weather data",
+   "signup": "Sign up for weather updates",
+   "about": "About WeatherMaster"
+}
+```
 
 ### Weather APIs
 
@@ -58,18 +88,20 @@ WeatherMaster is a weather monitoring application that provides users with weath
 ## Technology Stack
 
 ### Frontend
-- **React.js**: For dynamic user interfaces.
+- **React.js**: A JavaScript library for building user interfaces.
+- **CSS:** For styling the web pages.
 - **Axios**: For API communication.
 - **Recharts**: For data visualization.
 
 ### Backend
-- **Flask**: Lightweight web framework for handling server-side logic.
+- **Flask**: A Lightweight web framework for Python to handling server-side logic.
+- **Flask-CORS:** For handling cross-origin requests between React and Flask.
 - **SQLAlchemy**: ORM for database interactions.
 - **Celery**: For managing asynchronous tasks.
 
 ### Infrastructure
 - **Heroku**: For cloud deployment and hosting.
-- **Redis**: In-memory data store for caching and message brokering.
+- **Redis**: An in-memory data structure store used for caching.
 - **PostgreSQL**: Scalable relational database.
 
 ### Testing and Automation
