@@ -4,8 +4,9 @@
 
 ## Description
 
+WeatherMaster is a weather monitoring application that provides users with weather-related data. It is built using React for the frontend, Flask for the backend API, and Redis for caching to improve performance. WeatherMaster is a smooth, ad-free way to get up-to-date, reliable weather information. The app provides current weather information, short-term and long-term forecasts.
 
-WeatherMaster is a smooth, ad-free way to get up-to-date, reliable weather information. The app provides current weather information, short-term and long-term forecasts, and radar data aggregated from multiple weather sources for improved accuracy.
+
 
 ## Features
 - **Current Weather**: Shows real-time weather conditions.
