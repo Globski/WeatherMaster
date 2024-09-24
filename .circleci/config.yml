@@ -3,16 +3,12 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/python:3.8  # Python for backend
-      - image: circleci/node:14.17  # Node for React
-      - image: postgres:13            # Standard PostgreSQL image
+      - image: circleci/python:3.8  # Choose the right image based on your backend
+      - image: circleci/node:14.17  # For React/Node
       - image: redis:6                # Redis instance
 
     environment:
       FLASK_ENV: test
-      POSTGRES_USER: postgres
-      POSTGRES_DB: weather_db
-      POSTGRES_PASSWORD: postgres
       REDIS_URL: redis://localhost:6379
 
     steps:
