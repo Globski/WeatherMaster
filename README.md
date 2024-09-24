@@ -4,7 +4,7 @@
 
 ## Description
 
-WeatherMaster is a weather monitoring application that provides users with weather-related data. It is built using React for the frontend, Flask for the backend API, and Redis for caching to improve performance. WeatherMaster is a smooth, ad-free way to get up-to-date, reliable weather information. The app provides current weather information, short-term and long-term forecasts.
+WeatherMaster is a weather-tracking application that provides users with weather-related data. It is built using React for the frontend, Flask for the backend API, and Redis for caching to improve performance. WeatherMaster is a smooth, ad-free way to get up-to-date, reliable weather information. The app provides current weather information, short-term and long-term forecasts.
 
 
 ## Features
@@ -49,6 +49,27 @@ WeatherMaster is a weather monitoring application that provides users with weath
 }
 ```
 
+- **GET /api/weather**
+  - Parameters: `city`, `postal_code`, `latitude`, `longitude`
+  - Response: JSON object with current weather, hourly, and 7-day forecast.
+
+Example request:
+```bash
+GET /api/weather?city=New York
+```
+
+Response:
+```json
+{
+  "location": "New York",
+  "current": {
+    "temp": "20°C",
+    "humidity": "65%"
+  },
+  "forecast": [...]
+}
+```
+
 ### Weather APIs
 
 **APIs**: Endpoints used to fetch current weather, forecasts, and radar data
@@ -88,27 +109,33 @@ WeatherMaster is a weather monitoring application that provides users with weath
 ## Technology Stack
 
 ### Frontend
-- **React.js**: A JavaScript library for building user interfaces.
+- **React.js**: A JavaScript library for building user interfaces. Built with React, uses Axios for API requests.
 - **CSS:** For styling the web pages.
 - **Axios**: For API communication.
 - **Recharts**: For data visualization.
 
 ### Backend
-- **Flask**: A Lightweight web framework for Python to handling server-side logic.
+- **Flask**: A Lightweight web framework for Python to handling server-side logic. Flask application (Flux Server) managing weather data requests and interactions with the database.
 - **Flask-CORS:** For handling cross-origin requests between React and Flask.
 - **SQLAlchemy**: ORM for database interactions.
-- **Celery**: For managing asynchronous tasks.
+- **Celery**: For managing asynchronous tasks. Managed by cron jobs, fetching new weather data periodically.
 
 ### Infrastructure
 - **Heroku**: For cloud deployment and hosting.
-- **Redis**: An in-memory data structure store used for caching.
-- **PostgreSQL**: Scalable relational database.
+- **Redis**: Redis is used to cache frequently requested weather information.
+- **Database**: PostgreSQL is used to store weather data.
 
 ### Testing and Automation
 - **Jest**: For unit testing React components.
 - **Pytest**: For backend testing.
 - **Selenium**: For end-to-end testing.
 - **CircleCI**: For CI/CD automation.
+
+## Caching and Background Tasks
+
+- **Redis**: Used for caching weather data to improve response times for repeated requests.
+- **Cron Jobs**: Scheduled tasks fetch and process data from the external weather API periodically, ensuring up-to-date forecasts without user intervention.
+
 
 ## How to use
 
@@ -131,13 +158,23 @@ WeatherMaster is a weather monitoring application that provides users with weath
      ```bash
      pip install -r requirements.txt
      ```
-
+   
 4. **Configuration**
 
 - **Environment Variables**:
   - Create a `.env` file in the root directory and include necessary API keys and configurations.
+  - Set up environment variables for API keys and database:
+   ```bash
+   export FLUX_API_KEY=your-api-key
+   export DATABASE_URL=postgresql://user:password@localhost:5432/weather_db
+   ```
 
+   - Run migrations:
+   ```bash
+   flask db upgrade
+   ```
 5. **Start the Server**:
+   
    - For the frontend:
      ```bash
      npm start
@@ -147,9 +184,14 @@ WeatherMaster is a weather monitoring application that provides users with weath
      flask run
      ```
 
-6. **Access the App**:
-   - Visit `http://localhost:3000` for the frontend.
+7. **Access the App**:
+   - To retrieve weather data, navigate to the app at `http://localhost:5000`. You can search for weather forecasts by city name, postal code, or coordinates for the frontend.
    - Visit `http://localhost:5000` for the backend.
+
+   Example request:
+   ```bash
+   GET /api/weather?city=London
+   ```
 
 ## Contributing
 
@@ -163,7 +205,7 @@ Contributions are welcome! Please follow these steps:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+Weathemaster is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## FAQ
 
@@ -181,3 +223,8 @@ A: API documentation is included in the `README.md` under the [Weather API](#wea
 
 - **Issue**: Occasionally, the app may experience delays in data retrieval.
 - **Solution**: This is under review; future updates will address performance optimizations.
+
+## Contact
+
+Created by [Gloria Ogunsemore](https://www.linkedin.com/in/your-profile).
+
