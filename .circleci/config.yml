@@ -33,13 +33,23 @@ jobs:
             cd frontend
             npm install
 
+      # Wait for PostgreSQL to be ready
+      - run:
+          name: Wait for PostgreSQL
+          command: |
+            echo "Waiting for PostgreSQL to be ready..."
+            while ! nc -z localhost 5432; do
+              sleep 1
+            done
+            echo "PostgreSQL is ready."
+
       # Run Database Migrations
       - run:
           name: Run Database Migrations
           command: |
             cd backend
             . ../venv/bin/activate
-            flask db upgrade
+            flask db upgrade  # or your migration command
 
       # Build Frontend
       - run:
