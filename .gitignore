@@ -128,3 +128,40 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+
+# Python
+venv/
+*.pyc
+__pycache__/
+instance/
+.pytest_cache/
+
+# Node.js
+node_modules/
+build/
+dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Redis dumps
+dump.rdb
+*.pid
+
+# IDE/Editor specific
+.vscode/
+.idea/
+.DS_Store
+
+# Environment Variables
+.env
+
+# Coverage reports
+coverage/
+coverage.xml
+*.cover
+
+# CircleCI Cache/Workspace
+.circleci/cache/
