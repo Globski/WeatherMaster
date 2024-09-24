@@ -1,112 +1,64 @@
 version: 2.1
 
-executors:
-  docker-executor:
-    docker:
-      - image: circleci/node:14.17  # Node.js environment for frontend
-      - image: circleci/python:3.8    # Python environment for backend
-    docker_layer_caching: true  # Enable caching for faster builds
-
 jobs:
-  install_dependencies:
-    executor: docker-executor
+  build:
+    docker:
+      - image: circleci/python:3.8  # Choose the right image based on your backend
+      - image: circleci/node:14.17  # For React/Node
+      - image: circleci/postgres:13-alpine  # For PostgreSQL
+      - image: redis:6  # Redis instance
+
+    environment:
+      FLASK_ENV: test
+      POSTGRES_USER: postgres
+      POSTGRES_DB: weather_db
+      POSTGRES_PASSWORD: postgres
+      REDIS_URL: redis://localhost:6379
+
     steps:
-      - checkout  # Check out the code from the repository
-      # Install frontend dependencies
+      - checkout  # Check out your project's code
+
+      # Install Backend Dependencies (Flask)
+      - run:
+          name: Set up Python Environment
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            pip install -r backend/requirements.txt
+
+      # Install Frontend Dependencies (React)
       - run:
           name: Install Frontend Dependencies
           command: |
             cd frontend
             npm install
-      # Install backend dependencies
-      - run:
-          name: Install Backend Dependencies
-          command: |
-            cd backend
-            python -m venv venv  # Set up a virtual environment
-            . venv/bin/activate
-            pip install -r requirements.txt  # Install dependencies
 
-  run_database_migrations:
-    executor: docker-executor
-    steps:
-      - checkout  # Check out the code from the repository
-      # Run database migrations
-      - run:
-          name: Run Database Migrations
-          command: |
-            cd backend
-            . venv/bin/activate  # Activate the virtual environment
-            flask db upgrade  # Run the migration command
-
-  build_frontend:
-    executor: docker-executor
-    steps:
-      - checkout  # Check out the code from the repository
-      # Build the frontend
-      - run:
-          name: Build Frontend
-          command: |
-            cd frontend
-            npm run build  # Build the frontend application
-
-  run_backend_tests:
-    executor: docker-executor
-    steps:
-      - checkout  # Check out the code from the repository
-      # Run backend tests
+      # Run Backend Tests
       - run:
           name: Run Backend Tests
           command: |
             cd backend
-            . venv/bin/activate  # Activate the virtual environment
-            pytest  # Run the tests
+            . ../venv/bin/activate
+            pytest
 
-  run_frontend_tests:
-    executor: docker-executor
-    steps:
-      - checkout  # Check out the code from the repository
-      # Run frontend tests
+      # Run Frontend Tests
       - run:
           name: Run Frontend Tests
           command: |
             cd frontend
-            npm run test  # Run the tests
+            npm run test
 
-  check_linting:
-    executor: docker-executor
-    steps:
-      - checkout  # Check out the code from the repository
-      # Check for linting errors in frontend and backend
+      # Check for linting errors
       - run:
-          name: Check Frontend Code Linting
+          name: Check Code Linting
           command: |
             cd frontend
-            npm run lint  # Run the linter for the frontend
-      - run:
-          name: Check Backend Code Linting
-          command: |
-            cd backend
-            flake8 .  # Run flake8 for the backend
+            npm run lint
+            cd ../backend
+            flake8 .
 
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - install_dependencies
-      - run_database_migrations:
-          requires:
-            - install_dependencies
-      - build_frontend:
-          requires:
-            - install_dependencies
-      - run_backend_tests:
-          requires:
-            - install_dependencies
-      - run_frontend_tests:
-          requires:
-            - build_frontend
-      - check_linting:
-          requires:
-            - run_backend_tests
-            - run_frontend_tests
+      - build
