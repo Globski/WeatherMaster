@@ -56,6 +56,13 @@ jobs:
             npm run lint
             cd ../backend
             flake8 .
+      # Run Database Migrations
+      - run:
+          name: Run Database Migrations
+          command: |
+            cd backend
+            . ../venv/bin/activate
+            flask db upgrade  # your migration command
 
 workflows:
   version: 2
