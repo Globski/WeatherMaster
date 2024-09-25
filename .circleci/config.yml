@@ -3,18 +3,8 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.8  # Primary image where commands will run
-      - image: circleci/postgres:13-alpine  # PostgreSQL service
-        name: postgres
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: weather_db
-          POSTGRES_PASSWORD: postgres
-      - image: redis:6  # Redis service
-        name: redis
-
     environment:
       FLASK_ENV: test
-      REDIS_URL: redis://redis:6379
 
     steps:
       - checkout  # Check out your project's code
