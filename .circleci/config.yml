@@ -2,18 +2,23 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/python:3.8  # Choose the right image based on your backend
-      - image: circleci/node:14.17  # For React/Node
-      - image: circleci/postgres:13-alpine  # For PostgreSQL
-      - image: redis:6  # Redis instance
+      - image: circleci/python:3.8  # Primary image where commands will run
+      - image: circleci/postgres:13-alpine  # PostgreSQL service
+        name: postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: weather_db
+          POSTGRES_PASSWORD: postgres
+      - image: redis:6  # Redis service
+        name: redis
+
     environment:
       FLASK_ENV: test
-      POSTGRES_USER: postgres
-      POSTGRES_DB: weather_db
-      POSTGRES_PASSWORD: postgres
-      REDIS_URL: redis://localhost:6379
+      REDIS_URL: redis://redis:6379
+
     steps:
       - checkout  # Check out your project's code
+
       # Install Backend Dependencies (Flask)
       - run:
           name: Set up Python Environment
@@ -21,12 +26,14 @@ jobs:
             python -m venv venv
             . venv/bin/activate
             pip install -r backend/requirements.txt
+
       # Install Frontend Dependencies (React)
       - run:
           name: Install Frontend Dependencies
           command: |
             cd frontend
             npm install
+
       # Run Backend Tests
       - run:
           name: Run Backend Tests
@@ -34,12 +41,14 @@ jobs:
             cd backend
             . ../venv/bin/activate
             pytest
+
       # Run Frontend Tests
       - run:
           name: Run Frontend Tests
           command: |
             cd frontend
             npm run test
+
       # Check for linting errors
       - run:
           name: Check Code Linting
@@ -48,6 +57,7 @@ jobs:
             npm run lint
             cd ../backend
             flake8 .
+
 workflows:
   version: 2
   build_and_test:
